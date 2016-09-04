@@ -13,9 +13,20 @@
 
         public void Pay(string orderId, string paymentMethod, PaymentInfo paymentInfo)
         {
-            var transaction = new PaymentTransaction();
-            _paymentProvider.MakePayment(transaction);
+            switch (paymentMethod)
+            {
+                case "check":
 
+                    break;
+                case "card":
+                    var transaction = new PaymentTransaction(orderId, paymentInfo);
+                    //TODO do some checks here
+                    _paymentProvider.MakePayment(transaction);
+                    break;
+                case "direct-debit":
+                    break;
+            }
+            //TODO here we will extract method below into sendConfirmationEmail method
             var orderConfirmationEmail  = new OrderConfirmationEmail();
             _emailGateway.Send(orderConfirmationEmail);
         }

@@ -5,7 +5,7 @@ using PaymentMethodRefactoring.Src;
 namespace PaymentMethodRefactoring.Tests
 {
     [TestFixture]
-    public class PaymentFeature1
+    public class PaymentServiceShould
     {
         private const string OrderId = "123-324-456";
         private PaymentService _paymentService;

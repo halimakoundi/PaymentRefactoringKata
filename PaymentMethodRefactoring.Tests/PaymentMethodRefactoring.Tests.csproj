@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PaymentFeature1.cs" />
+    <Compile Include="PaymentServiceShould.cs" />
     <Compile Include="PaymentProviderShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
