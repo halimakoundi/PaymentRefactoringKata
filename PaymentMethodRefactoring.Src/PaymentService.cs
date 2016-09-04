@@ -15,14 +15,14 @@
 
         public void Pay(decimal amount, string customerId, string orderId, string paymentMethod)
         {
-            ExecutePayment(new PaymentDetails(amount, orderId, paymentMethod));
+            ExecutePayment(new Payment(amount, orderId, paymentMethod));
 
             SendConfirmationEmail(customerId, orderId, paymentMethod);
         }
 
-        public class PaymentDetails
+        public class Payment
         {
-            public PaymentDetails(decimal amount, string orderId, string paymentMethod)
+            public Payment(decimal amount, string orderId, string paymentMethod)
             {
                 Amount = amount;
                 OrderId = orderId;
@@ -36,24 +36,24 @@
             public string PaymentMethod { get; }
         }
 
-        private void ExecutePayment(PaymentDetails paymentDetails)
+        private void ExecutePayment(Payment payment)
         {
-            switch (paymentDetails.PaymentMethod)
+            switch (payment.PaymentMethod)
             {
                 case "check":
-                    var cashTransaction = PaymentTransaction.With(paymentDetails.PaymentMethod, paymentDetails.Amount, paymentDetails.OrderId);
+                    var cashTransaction = PaymentTransaction.With(payment.PaymentMethod, payment.Amount, payment.OrderId);
                     _transactionRepo.Save(cashTransaction);
                     break;
                 case "card":
-                    _paymentProvider.AuthorisePayment(paymentDetails.Amount, paymentDetails.OrderId, paymentDetails.PaymentMethod);
+                    _paymentProvider.AuthorisePayment(payment.Amount, payment.OrderId, payment.PaymentMethod);
 
-                    var cardTransaction = PaymentTransaction.With(paymentDetails.PaymentMethod, paymentDetails.Amount, paymentDetails.OrderId);
+                    var cardTransaction = PaymentTransaction.With(payment.PaymentMethod, payment.Amount, payment.OrderId);
                     _transactionRepo.Save(cardTransaction);
                     break;
                 case "direct-debit":
-                    _paymentProvider.AuthorisePayment(paymentDetails.Amount, paymentDetails.OrderId, paymentDetails.PaymentMethod);
+                    _paymentProvider.AuthorisePayment(payment.Amount, payment.OrderId, payment.PaymentMethod);
 
-                    var directDebitTransaction = PaymentTransaction.With(paymentDetails.PaymentMethod, paymentDetails.Amount, paymentDetails.OrderId);
+                    var directDebitTransaction = PaymentTransaction.With(payment.PaymentMethod, payment.Amount, payment.OrderId);
                     _transactionRepo.Save(directDebitTransaction);
                     break;
             }
