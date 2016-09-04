@@ -17,15 +17,15 @@
         {
             switch (paymentMethod)
             {
-                case "cash":
+                case "check":
                     var cashTransaction = PaymentTransaction.With(paymentMethod, amount, orderId);
                     _transactionRepo.Save(cashTransaction);
                     break;
                 case "card":
                     _paymentProvider.AuthorisePayment(amount, orderId, paymentMethod);
 
-                    var transaction = PaymentTransaction.With(paymentMethod, amount, orderId);
-                    _transactionRepo.Save(transaction);
+                    var cardTransaction = PaymentTransaction.With(paymentMethod, amount, orderId);
+                    _transactionRepo.Save(cardTransaction);
                     break;
                 case "direct-debit":
                     _paymentProvider.AuthorisePayment(amount, orderId, paymentMethod);

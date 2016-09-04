@@ -23,8 +23,8 @@ namespace PaymentMethodRefactoring.Tests
             _customerId = "Cust-2345";
         }
 
-        [TestCase("cash", "123-324-456", 13.21)]
-        public void save_transaction_and_send_confirmation_when_payment_by_cash(string paymentMethod, string orderId, decimal amount)
+        [TestCase("check", "123-324-456", 13.21)]
+        public void save_transaction_and_send_confirmation_when_payment_by_check(string paymentMethod, string orderId, decimal amount)
         {
             var email = new OrderConfirmationEmail(orderId, _customerId, paymentMethod);
             _emailGateway.NewEmailFor(orderId, _customerId, paymentMethod).Returns(email);
