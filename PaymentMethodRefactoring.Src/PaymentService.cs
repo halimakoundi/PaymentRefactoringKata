@@ -22,26 +22,8 @@
 
         private void ExecutePayment(PaymentDetails paymentDetails)
         {
-            var payment = PaymentFor(paymentDetails);
+            var payment = PaymentFactory.PaymentFor(paymentDetails);
             payment.Execute(paymentDetails, _paymentProvider, _transactionRepo);
-        }
-
-        private static IPayment PaymentFor(PaymentDetails paymentDetails)
-        {
-            IPayment payment = null;
-            switch (paymentDetails.PaymentMethod)
-            {
-                case "check":
-                    payment = new CheckPayment();
-                    break;
-                case "card":
-                    payment = new CardPayment();
-                    break;
-                case "direct-debit":
-                    payment = new DirectDebitPayment();
-                    break;
-            }
-            return payment;
         }
 
         private void SendConfirmationEmail(string customerId, string orderId, string paymentMethod)

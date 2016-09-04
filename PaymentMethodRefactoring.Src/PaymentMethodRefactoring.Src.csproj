@@ -48,6 +48,7 @@
     <Compile Include="IPayment.cs" />
     <Compile Include="OrderConfirmationEmail.cs" />
     <Compile Include="PaymentDetails.cs" />
+    <Compile Include="PaymentFactory.cs" />
     <Compile Include="PaymentInfo.cs" />
     <Compile Include="IPaymentProvider.cs" />
     <Compile Include="PaymentService.cs" />
