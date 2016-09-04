@@ -25,7 +25,7 @@
             switch (payment.PaymentMethod)
             {
                 case "check":
-                    new CheckPayment().Execute(payment, _paymentProvider, _transactionRepo);
+                    payment.Execute(_paymentProvider, _transactionRepo);
                     break;
                 case "card":
                     new CardPayment().Execute(payment, _paymentProvider, _transactionRepo);

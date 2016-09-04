@@ -2,7 +2,7 @@ namespace PaymentMethodRefactoring.Src
 {
     public class CardPayment
     {
-        public void ExecuteCardPayment(Payment payment, IPaymentProvider paymentProvider, TransactionRepo transactionRepo)
+        public void Execute(Payment payment, IPaymentProvider paymentProvider, TransactionRepo transactionRepo)
         {
             paymentProvider.AuthorisePayment(payment.Amount, payment.OrderId, payment.PaymentMethod);
 
