@@ -19,15 +19,14 @@
 
                     break;
                 case "card":
-                    var transaction = new PaymentTransaction(orderId, paymentInfo);
                     //TODO do some checks here
-                    _paymentProvider.MakePayment(transaction);
+                    _paymentProvider.MakePayment(orderId, paymentInfo);
                     break;
                 case "direct-debit":
                     break;
             }
             //TODO here we will extract method below into sendConfirmationEmail method
-            var orderConfirmationEmail  = new OrderConfirmationEmail();
+            var orderConfirmationEmail  = _emailGateway.NewEmailFor(orderId, paymentMethod);
             _emailGateway.Send(orderConfirmationEmail);
         }
     }

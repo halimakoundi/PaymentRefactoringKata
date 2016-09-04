@@ -20,13 +20,12 @@ namespace PaymentMethodRefactoring.Tests
             _emailGateway = Substitute.For<IEmailGateway>();
             _paymentService = new PaymentService(_paymentProvider, _emailGateway);
             var paymentMethod = "card";
-            Email email = new OrderConfirmationEmail();
-            var transaction = new CardTransaction();
-
+            Email email = new OrderConfirmationEmail(OrderId, paymentMethod);
             var paymentInfo = new PaymentInfo();
+            _emailGateway.NewEmailFor(OrderId, paymentMethod).Returns(email);
             _paymentService.Pay(OrderId, paymentMethod, paymentInfo);
 
-            _paymentProvider.Received().MakePayment(transaction);
+            _paymentProvider.Received().MakePayment(OrderId, paymentInfo);
             _emailGateway.Received().Send(email);
         }
     }

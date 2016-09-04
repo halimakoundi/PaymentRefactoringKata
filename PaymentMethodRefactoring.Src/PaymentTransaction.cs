@@ -2,9 +2,13 @@ namespace PaymentMethodRefactoring.Src
 {
     public class PaymentTransaction
     {
+        private readonly string _orderId;
+        private readonly PaymentInfo _paymentInfo;
+
         public PaymentTransaction(string orderId, PaymentInfo paymentInfo)
         {
-            throw new System.NotImplementedException();
+            _orderId = orderId;
+            _paymentInfo = paymentInfo;
         }
     }
 }
