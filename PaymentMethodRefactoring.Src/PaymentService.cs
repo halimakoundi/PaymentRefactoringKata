@@ -35,9 +35,13 @@
                     break;
             }
 
-            var orderConfirmationEmail  = _emailGateway.NewEmailFor(orderId, customerId, paymentMethod);
+            SendConfirmationEmail(customerId, orderId, paymentMethod);
+        }
+
+        private void SendConfirmationEmail(string customerId, string orderId, string paymentMethod)
+        {
+            var orderConfirmationEmail = _emailGateway.NewEmailFor(orderId, customerId, paymentMethod);
             _emailGateway.Send(orderConfirmationEmail);
         }
-        
     }
 }
