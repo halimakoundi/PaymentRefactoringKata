@@ -25,7 +25,8 @@
             switch (payment.PaymentMethod)
             {
                 case "check":
-                    new CheckPayment().Execute(payment, _paymentProvider, _transactionRepo);
+                    IPaymentMethod checkPayment = new CheckPayment();
+                    checkPayment.Execute(payment, _paymentProvider, _transactionRepo);
                     break;
                 case "card":
                     new CardPayment().Execute(payment, _paymentProvider, _transactionRepo);
@@ -41,5 +42,10 @@
             var orderConfirmationEmail = _emailGateway.NewEmailFor(orderId, customerId, paymentMethod);
             _emailGateway.Send(orderConfirmationEmail);
         }
+    }
+
+    internal interface IPaymentMethod
+    {
+        void Execute(Payment payment, IPaymentProvider paymentProvider, TransactionRepo transactionRepo);
     }
 }

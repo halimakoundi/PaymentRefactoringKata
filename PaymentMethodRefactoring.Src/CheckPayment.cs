@@ -1,6 +1,6 @@
 namespace PaymentMethodRefactoring.Src
 {
-    public class CheckPayment
+    public class CheckPayment : IPaymentMethod
     {
         public void Execute(Payment payment, IPaymentProvider paymentProvider, TransactionRepo transactionRepo)
         {
