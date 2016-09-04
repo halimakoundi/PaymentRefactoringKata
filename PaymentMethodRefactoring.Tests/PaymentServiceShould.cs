@@ -24,7 +24,7 @@ namespace PaymentMethodRefactoring.Tests
         }
 
         [TestCase("card", "123-324-456", 153.90)]
-        [TestCase("direct-debit", "123-324-456", 74.89)]
+        [TestCase("direct-debit", "123-324-458", 74.89)]
         public void save_transaction_and_send_confirmation_when_payment_authorised(string paymentMethod, string orderId, decimal amount)
         {
             var email = new OrderConfirmationEmail(orderId, _customerId, paymentMethod);
