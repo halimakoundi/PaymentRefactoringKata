@@ -2,7 +2,7 @@
 {
     public class DirectDebitPayment
     {
-        public static void ExecuteDirectDebitPayment(Payment payment, IPaymentProvider paymentProvider, TransactionRepo transactionRepo)
+        public void ExecuteDirectDebitPayment(Payment payment, IPaymentProvider paymentProvider, TransactionRepo transactionRepo)
         {
             paymentProvider.AuthorisePayment(payment.Amount, payment.OrderId, payment.PaymentMethod);
 

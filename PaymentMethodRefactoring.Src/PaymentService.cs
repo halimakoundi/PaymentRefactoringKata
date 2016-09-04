@@ -25,13 +25,13 @@
             switch (payment.PaymentMethod)
             {
                 case "check":
-                    CheckPayment.ExecuteCheckPayment(payment, _transactionRepo);
+                    new CheckPayment().ExecuteCheckPayment(payment, _transactionRepo);
                     break;
                 case "card":
-                    CardPayment.ExecuteCardPayment(payment, _paymentProvider, _transactionRepo);
+                    new CardPayment().ExecuteCardPayment(payment, _paymentProvider, _transactionRepo);
                     break;
                 case "direct-debit":
-                    DirectDebitPayment.ExecuteDirectDebitPayment(payment, _paymentProvider, _transactionRepo);
+                    new DirectDebitPayment().ExecuteDirectDebitPayment(payment, _paymentProvider, _transactionRepo);
                     break;
             }
         }
