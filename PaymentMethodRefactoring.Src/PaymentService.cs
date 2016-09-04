@@ -15,6 +15,13 @@
 
         public void Pay(decimal amount, string customerId, string orderId, string paymentMethod)
         {
+            ExecutePayment(amount, orderId, paymentMethod);
+
+            SendConfirmationEmail(customerId, orderId, paymentMethod);
+        }
+
+        private void ExecutePayment(decimal amount, string orderId, string paymentMethod)
+        {
             switch (paymentMethod)
             {
                 case "check":
@@ -34,8 +41,6 @@
                     _transactionRepo.Save(directDebitTransaction);
                     break;
             }
-
-            SendConfirmationEmail(customerId, orderId, paymentMethod);
         }
 
         private void SendConfirmationEmail(string customerId, string orderId, string paymentMethod)
