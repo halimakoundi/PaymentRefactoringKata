@@ -1,12 +1,12 @@
 namespace PaymentMethodRefactoring.Src
 {
-    public class CardPayment
+    public class CardPayment : IPayment
     {
-        public void Execute(Payment payment, IPaymentProvider paymentProvider, TransactionRepo transactionRepo)
+        public void Execute(PaymentDetails paymentDetails, IPaymentProvider paymentProvider, TransactionRepo transactionRepo)
         {
-            paymentProvider.AuthorisePayment(payment.Amount, payment.OrderId, payment.PaymentMethod);
+            paymentProvider.AuthorisePayment(paymentDetails.Amount, paymentDetails.OrderId, paymentDetails.PaymentMethod);
 
-            var cardTransaction = PaymentTransaction.With(payment.PaymentMethod, payment.Amount, payment.OrderId);
+            var cardTransaction = PaymentTransaction.With(paymentDetails.PaymentMethod, paymentDetails.Amount, paymentDetails.OrderId);
             transactionRepo.Save(cardTransaction);
         }
     }

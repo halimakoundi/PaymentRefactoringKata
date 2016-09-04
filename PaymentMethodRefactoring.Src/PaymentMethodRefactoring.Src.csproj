@@ -46,7 +46,7 @@
     <Compile Include="Email.cs" />
     <Compile Include="IEmailGateway.cs" />
     <Compile Include="OrderConfirmationEmail.cs" />
-    <Compile Include="Payment.cs" />
+    <Compile Include="PaymentDetails.cs" />
     <Compile Include="PaymentInfo.cs" />
     <Compile Include="IPaymentProvider.cs" />
     <Compile Include="PaymentService.cs" />

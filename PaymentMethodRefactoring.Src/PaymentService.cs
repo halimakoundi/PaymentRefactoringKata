@@ -15,26 +15,27 @@
 
         public void Pay(decimal amount, string customerId, string orderId, string paymentMethod)
         {
-            ExecutePayment(new Payment(amount, orderId, paymentMethod));
+            ExecutePayment(new PaymentDetails(amount, orderId, paymentMethod));
 
             SendConfirmationEmail(customerId, orderId, paymentMethod);
         }
 
-        private void ExecutePayment(Payment payment)
+        private void ExecutePayment(PaymentDetails paymentDetails)
         {
-            switch (payment.PaymentMethod)
+            IPayment payment = null;
+            switch (paymentDetails.PaymentMethod)
             {
                 case "check":
-                    IPaymentMethod checkPayment = new CheckPayment();
-                    checkPayment.Execute(payment, _paymentProvider, _transactionRepo);
+                    payment = new CheckPayment();
                     break;
                 case "card":
-                    new CardPayment().Execute(payment, _paymentProvider, _transactionRepo);
+                    payment = new CardPayment();
                     break;
                 case "direct-debit":
-                    new DirectDebitPayment().Execute(payment, _paymentProvider, _transactionRepo);
+                    payment = new DirectDebitPayment();
                     break;
             }
+            payment.Execute(paymentDetails, _paymentProvider, _transactionRepo);
         }
 
         private void SendConfirmationEmail(string customerId, string orderId, string paymentMethod)
@@ -44,8 +45,8 @@
         }
     }
 
-    internal interface IPaymentMethod
+    internal interface IPayment
     {
-        void Execute(Payment payment, IPaymentProvider paymentProvider, TransactionRepo transactionRepo);
+        void Execute(PaymentDetails paymentDetails, IPaymentProvider paymentProvider, TransactionRepo transactionRepo);
     }
 }

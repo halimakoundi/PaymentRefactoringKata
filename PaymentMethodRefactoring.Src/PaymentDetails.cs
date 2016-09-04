@@ -1,8 +1,8 @@
 ﻿namespace PaymentMethodRefactoring.Src
 {
-    public class Payment
+    public class PaymentDetails
     {
-        public Payment(decimal amount, string orderId, string paymentMethod)
+        public PaymentDetails(decimal amount, string orderId, string paymentMethod)
         {
             Amount = amount;
             OrderId = orderId;
