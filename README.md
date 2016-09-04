@@ -1,0 +1,3 @@
+# PaymentRefactoringKata
+
+Simple refactoring exercise 
