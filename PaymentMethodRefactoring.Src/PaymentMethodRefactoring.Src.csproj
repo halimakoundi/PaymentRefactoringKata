@@ -45,6 +45,7 @@
     <Compile Include="DirectDebitPayment.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="IEmailGateway.cs" />
+    <Compile Include="IPayment.cs" />
     <Compile Include="OrderConfirmationEmail.cs" />
     <Compile Include="PaymentDetails.cs" />
     <Compile Include="PaymentInfo.cs" />

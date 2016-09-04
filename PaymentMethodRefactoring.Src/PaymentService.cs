@@ -22,6 +22,12 @@
 
         private void ExecutePayment(PaymentDetails paymentDetails)
         {
+            var payment = PaymentFor(paymentDetails);
+            payment.Execute(paymentDetails, _paymentProvider, _transactionRepo);
+        }
+
+        private static IPayment PaymentFor(PaymentDetails paymentDetails)
+        {
             IPayment payment = null;
             switch (paymentDetails.PaymentMethod)
             {
@@ -35,7 +41,7 @@
                     payment = new DirectDebitPayment();
                     break;
             }
-            payment.Execute(paymentDetails, _paymentProvider, _transactionRepo);
+            return payment;
         }
 
         private void SendConfirmationEmail(string customerId, string orderId, string paymentMethod)
@@ -43,10 +49,5 @@
             var orderConfirmationEmail = _emailGateway.NewEmailFor(orderId, customerId, paymentMethod);
             _emailGateway.Send(orderConfirmationEmail);
         }
-    }
-
-    internal interface IPayment
-    {
-        void Execute(PaymentDetails paymentDetails, IPaymentProvider paymentProvider, TransactionRepo transactionRepo);
     }
 }
