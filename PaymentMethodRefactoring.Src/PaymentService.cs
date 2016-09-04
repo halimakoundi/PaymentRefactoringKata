@@ -18,8 +18,8 @@
             switch (paymentMethod)
             {
                 case "check":
-                    var cashTransaction = PaymentTransaction.With(paymentMethod, amount, orderId);
-                    _transactionRepo.Save(cashTransaction);
+                    var checkTransaction = PaymentTransaction.With(paymentMethod, amount, orderId);
+                    _transactionRepo.Save(checkTransaction);
                     break;
                 case "card":
                     _paymentProvider.AuthorisePayment(amount, orderId, paymentMethod);
