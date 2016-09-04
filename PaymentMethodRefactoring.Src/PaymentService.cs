@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PaymentMethodRefactoring.Src
+﻿namespace PaymentMethodRefactoring.Src
 {
     public class PaymentService
     {
@@ -19,8 +17,9 @@ namespace PaymentMethodRefactoring.Src
         {
             switch (paymentMethod)
             {
-                case "check":
-
+                case "cash":
+                    var cashTransaction = PaymentTransaction.With(paymentMethod, amount, orderId);
+                    _transactionRepo.Save(cashTransaction);
                     break;
                 case "card":
                     _paymentProvider.AuthorisePayment(amount, orderId, paymentMethod);
@@ -35,6 +34,7 @@ namespace PaymentMethodRefactoring.Src
                     _transactionRepo.Save(directDebitTransaction);
                     break;
             }
+
             //TODO here we will extract method below into sendConfirmationEmail method
             var orderConfirmationEmail  = _emailGateway.NewEmailFor(orderId, customerId, paymentMethod);
             _emailGateway.Send(orderConfirmationEmail);
