@@ -3,6 +3,6 @@
     public interface IEmailGateway
     {
         void Send(Email email);
-        Email NewEmailFor(string orderId, string paymentMethod);
+        Email NewEmailFor(string id, string orderId, string paymentMethod);
     }
 }

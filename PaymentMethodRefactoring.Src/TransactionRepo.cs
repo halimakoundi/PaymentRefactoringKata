@@ -1,8 +1,8 @@
 ﻿namespace PaymentMethodRefactoring.Src
 {
-    public class PaymentProvider
+    public class TransactionRepo
     {
-        public virtual void MakePayment(string orderId, PaymentInfo paymentInfo)
+        public virtual void Save(PaymentTransaction transaction)
         {
             throw new System.NotImplementedException();
         }

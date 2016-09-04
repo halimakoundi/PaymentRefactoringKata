@@ -40,15 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardTransaction.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="IEmailGateway.cs" />
     <Compile Include="OrderConfirmationEmail.cs" />
     <Compile Include="PaymentInfo.cs" />
-    <Compile Include="PaymentProvider.cs" />
+    <Compile Include="IPaymentProvider.cs" />
     <Compile Include="PaymentService.cs" />
     <Compile Include="PaymentTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionRepo.cs" />
     <Compile Include="UserAccountChecker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

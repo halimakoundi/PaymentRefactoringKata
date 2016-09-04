@@ -1,17 +1,21 @@
-﻿namespace PaymentMethodRefactoring.Src
+﻿using System;
+
+namespace PaymentMethodRefactoring.Src
 {
     public class PaymentService
     {
-        private readonly PaymentProvider _paymentProvider;
+        private readonly IPaymentProvider _paymentProvider;
         private readonly IEmailGateway _emailGateway;
+        private readonly TransactionRepo _transactionRepo;
 
-        public PaymentService(PaymentProvider paymentProvider, IEmailGateway emailGateway)
+        public PaymentService(IPaymentProvider paymentProvider, IEmailGateway emailGateway, TransactionRepo transactionRepo)
         {
             _paymentProvider = paymentProvider;
             _emailGateway = emailGateway;
+            _transactionRepo = transactionRepo;
         }
 
-        public void Pay(string orderId, string paymentMethod, PaymentInfo paymentInfo)
+        public void Pay(decimal amount, string customerId, string orderId, string paymentMethod)
         {
             switch (paymentMethod)
             {
@@ -19,15 +23,17 @@
 
                     break;
                 case "card":
-                    //TODO do some checks here
-                    _paymentProvider.MakePayment(orderId, paymentInfo);
+                    _paymentProvider.AuthorisePayment(amount, orderId, paymentMethod);
+                    PaymentTransaction transaction = PaymentTransaction.With(paymentMethod, amount, orderId);
+                    _transactionRepo.Save(transaction);
                     break;
                 case "direct-debit":
                     break;
             }
             //TODO here we will extract method below into sendConfirmationEmail method
-            var orderConfirmationEmail  = _emailGateway.NewEmailFor(orderId, paymentMethod);
+            var orderConfirmationEmail  = _emailGateway.NewEmailFor(orderId, customerId, paymentMethod);
             _emailGateway.Send(orderConfirmationEmail);
         }
+        
     }
 }
