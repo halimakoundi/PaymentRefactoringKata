@@ -24,7 +24,7 @@ namespace PaymentMethodRefactoring.Tests
         }
 
         [TestCase("card", "123-324-456", 26.70)]
-        public void pay_order_and_send_confirmation_email(string paymentMethod, string orderId, decimal amount)
+        public void save_transaction_and_send_confirmation_when_payment_authorised(string paymentMethod, string orderId, decimal amount)
         {
             var email = new OrderConfirmationEmail(orderId, _customerId, paymentMethod);
             _emailGateway.NewEmailFor(orderId, _customerId, paymentMethod).Returns(email);
