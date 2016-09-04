@@ -40,9 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardPayment.cs" />
+    <Compile Include="CheckPayment.cs" />
+    <Compile Include="DirectDebitPayment.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="IEmailGateway.cs" />
     <Compile Include="OrderConfirmationEmail.cs" />
+    <Compile Include="Payment.cs" />
     <Compile Include="PaymentInfo.cs" />
     <Compile Include="IPaymentProvider.cs" />
     <Compile Include="PaymentService.cs" />
