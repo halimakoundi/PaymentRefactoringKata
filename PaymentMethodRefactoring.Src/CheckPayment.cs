@@ -4,8 +4,8 @@ namespace PaymentMethodRefactoring.Src
     {
         public void Execute(PaymentDetails paymentDetails, IPaymentProvider paymentProvider, TransactionRepo transactionRepo)
         {
-            var cashTransaction = PaymentTransaction.With(paymentDetails.PaymentMethod, paymentDetails.Amount, paymentDetails.OrderId);
-            transactionRepo.Save(cashTransaction);
+            var checkTransaction = PaymentTransaction.With(paymentDetails.PaymentMethod, paymentDetails.Amount, paymentDetails.OrderId);
+            transactionRepo.Save(checkTransaction);
         }
     }
 }
