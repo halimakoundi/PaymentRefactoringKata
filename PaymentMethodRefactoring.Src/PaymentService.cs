@@ -22,22 +22,21 @@
                     _transactionRepo.Save(checkTransaction);
                     break;
                 case "card":
-                    _paymentProvider.AuthorisePayment(amount, orderId, paymentMethod);
+                    _paymentProvider.AuthorisePayment(amount, orderId, paymentMethod, customerId);
 
                     var cardTransaction = PaymentTransaction.With(paymentMethod, amount, orderId);
                     _transactionRepo.Save(cardTransaction);
                     break;
                 case "direct-debit":
-                    _paymentProvider.AuthorisePayment(amount, orderId, paymentMethod);
+                    _paymentProvider.AuthorisePayment(amount, orderId, paymentMethod,customerId);
 
                     var directDebitTransaction = PaymentTransaction.With(paymentMethod, amount, orderId);
                     _transactionRepo.Save(directDebitTransaction);
                     break;
             }
 
-            var orderConfirmationEmail  = _emailGateway.NewEmailFor(orderId, customerId, paymentMethod);
+            var orderConfirmationEmail = _emailGateway.NewEmailFor(orderId, customerId, paymentMethod);
             _emailGateway.Send(orderConfirmationEmail);
         }
-        
     }
 }

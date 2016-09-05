@@ -46,7 +46,7 @@ namespace PaymentMethodRefactoring.Tests
 
             _paymentService.Pay(amount,  _customerId, orderId, paymentMethod);
 
-            _paymentProvider.Received().AuthorisePayment(amount, orderId, paymentMethod);
+            _paymentProvider.Received().AuthorisePayment(amount, orderId, paymentMethod, _customerId);
             _transactionRepo.ReceivedWithAnyArgs().Save(transaction);
             _emailGateway.Received().Send(email);
         }
